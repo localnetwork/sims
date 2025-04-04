@@ -77,14 +77,14 @@
                 echo json_encode(['message' => 'Failed to create student. Please try again later.']); 
             }  
             break;
-        case "GET":
+        case "GET": 
             $search = $_GET['s'] ?? null;
 
             if ($search) {
                 $search = mysqli_real_escape_string($con, $search);
-                $query = "SELECT * FROM student_info WHERE fname LIKE '%$search%' OR lname LIKE '%$search%'";
+                $query = "SELECT * FROM student_info WHERE fname LIKE '%$search%' OR lname LIKE '%$search%' ORDER BY stud_id DESC"; 
             } else {
-                $query = "SELECT * FROM student_info";
+                $query = "SELECT * FROM student_info ORDER BY stud_id DESC";
             }
 
             $result = mysqli_query($con, $query);
@@ -97,6 +97,22 @@
             }
                
             break;
+
+        case "DELETE": 
+            $id = $_GET['id'] ?? null; 
+            if (!$id) {
+                http_response_code(400);
+                echo json_encode(['error' => 'ID is required']);
+                exit;
+            } 
+            $query = "DELETE FROM student_info WHERE stud_id = '$id'";
+            $result = mysqli_query($con, $query); 
+            if ($result) {
+                echo json_encode(['message' => 'Student deleted successfully.']);
+            } else {
+                echo json_encode(['error' => 'Failed to delete student.']);
+            }
+            break; 
 
         default: 
             echo json_encode(['error' => 'Method not allowed.']);

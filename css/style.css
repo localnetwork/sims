@@ -9,3 +9,7 @@
 .header img {
   transition: all ease 0.3s;
 }
+
+body {
+  overflow-y: scroll;
+}
