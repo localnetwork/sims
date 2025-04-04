@@ -1,0 +1,11 @@
+.sticky-header img {
+  max-width: 40px;
+  transition: all ease 0.3s;
+}
+
+.sticky-header {
+  padding: 10px 15px;
+}
+.header img {
+  transition: all ease 0.3s;
+}
